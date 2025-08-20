@@ -1,11 +1,12 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { auth, db } from '@/lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { collection, query, where, getDocs, getDoc, doc, addDoc, serverTimestamp } from 'firebase/firestore';
 import { Anchor, Menu, X, PlusCircle, TrendingUp, DollarSign, PieChart, Calendar, Tag, Upload, Image as ImageIcon } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
+import Image from 'next/image';
 
 export default function HomePage() {
   const router = useRouter();
@@ -130,6 +131,8 @@ export default function HomePage() {
     }
   };
 
+  const fetchTransactionsCallback = useCallback(fetchTransactions, []);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
@@ -171,7 +174,7 @@ export default function HomePage() {
     });
 
     return () => unsubscribe();
-  }, [router]);
+  }, [router, fetchTransactionsCallback]); // Add fetchTransactions here
 
   const handleSignOut = async () => {
     try {
@@ -541,6 +544,7 @@ export default function HomePage() {
                 
                 {imagePreview ? (
                   <div className="relative mt-2 rounded-lg overflow-hidden border border-gray-200">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img 
                       src={imagePreview} 
                       alt="Transaction receipt" 
@@ -773,11 +777,12 @@ export default function HomePage() {
                           <div key={transaction.id} className="flex items-center justify-between border-b border-gray-100 pb-3">
                             <div className="flex items-center">
                               {transaction.imageUrl ? (
-                                <div className="w-10 h-10 bg-gray-100 rounded-lg overflow-hidden">
-                                  <img 
-                                    src={transaction.imageUrl} 
-                                    alt={transaction.title} 
-                                    className="w-full h-full object-cover"
+                                <div className="w-10 h-10 bg-gray-100 rounded-lg overflow-hidden relative">
+                                  <Image
+                                    src={transaction.imageUrl}
+                                    alt={transaction.title}
+                                    fill
+                                    className="object-cover"
                                     onError={(e) => {
                                       e.target.onerror = null;
                                       e.target.src = "https://placehold.co/40x40/gray/white?text=No+Image";
