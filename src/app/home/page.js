@@ -131,7 +131,7 @@ export default function HomePage() {
     }
   };
 
-  const fetchTransactionsCallback = useCallback(fetchTransactions, []);
+  const fetchTransactionsCallback = useCallback(fetchTransactions, [getCategoryIcon]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -539,7 +539,7 @@ export default function HomePage() {
               {/* Receipt Image Upload */}
               <div>
                 <label className="block text-gray-700 text-sm font-medium mb-2">
-                  ImageTransaction Receipt (Optional)
+                  Transaction Receipt (Optional)
                 </label>
                 
                 {imagePreview ? (
@@ -567,7 +567,7 @@ export default function HomePage() {
                     <div className="flex flex-col items-center">
                       <Upload className="w-10 h-10 text-gray-400 mb-2" />
                       <p className="text-sm font-medium text-gray-700">
-                        Click to upload ImageTransaction receipt
+                        Click to upload transaction receipt
                       </p>
                       <p className="text-xs text-gray-500 mt-1">
                         PNG, JPG (Max 5MB)

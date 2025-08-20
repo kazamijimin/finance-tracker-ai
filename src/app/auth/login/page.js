@@ -196,7 +196,7 @@ export default function FinanceTrackerLogin() {
           {/* Bottom text */}
           <div className="text-center mt-6 pb-6">
             <p className="text-gray-600 text-sm" style={{fontFamily: 'Poppins, sans-serif'}}>
-              Don't have an account?{' '}
+              Don&apos;t have an account?{' '}
               <button
                 onClick={() => router.push('signup')}
                 className="text-red-600 font-semibold hover:text-red-700"
