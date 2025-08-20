@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { auth, db } from "@/lib/firebase";
 import { onAuthStateChanged } from "firebase/auth";
@@ -62,16 +62,19 @@ export default function HomePage() {
   const [transactionError, setTransactionError] = useState("");
 
   // Categories with icons
-  const categories = [
-    { name: "Food", icon: "🍔" },
-    { name: "Shopping", icon: "🛒" },
-    { name: "Transport", icon: "🚗" },
-    { name: "Entertainment", icon: "🎬" },
-    { name: "Bills", icon: "📄" },
-    { name: "Health", icon: "💊" },
-    { name: "Income", icon: "💰" },
-    { name: "Other", icon: "📌" },
-  ];
+  const categories = useMemo(
+    () => [
+      { name: "Food", icon: "🍔" },
+      { name: "Shopping", icon: "🛒" },
+      { name: "Transport", icon: "🚗" },
+      { name: "Entertainment", icon: "🎬" },
+      { name: "Bills", icon: "📄" },
+      { name: "Health", icon: "💊" },
+      { name: "Income", icon: "💰" },
+      { name: "Other", icon: "📌" },
+    ],
+    []
+  );
 
   // Modify the fetchTransactions function to improve sorting
   const fetchTransactions = async (userId) => {
@@ -867,7 +870,7 @@ export default function HomePage() {
           {/* Welcome section */}
           <div className="mb-8">
             <h1 className="text-2xl font-bold text-gray-800 mb-2">
-              Ahoy, {userName}! &#x1F3F4;&#x200D;&#x2620;&#xFE0F;
+              Ahoy, {userName}! 🏴
             </h1>
             <p className="text-gray-600">
               Welcome to your treasure map. Here's your financial adventure for
