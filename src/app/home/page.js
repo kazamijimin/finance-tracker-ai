@@ -870,7 +870,7 @@ export default function HomePage() {
           {/* Welcome section */}
           <div className="mb-8">
             <h1 className="text-2xl font-bold text-gray-800 mb-2">
-              Ahoy, {userName}! 🏴
+              Ahoy, {userName}! &#127988;
             </h1>
             <p className="text-gray-600">
               Welcome to your treasure map. Here's your financial adventure for
