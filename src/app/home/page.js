@@ -150,7 +150,7 @@ export default function HomePage() {
   };
 
   const fetchTransactionsCallback = useCallback(
-    (userId) => {
+    async (userId) => {
       const getCategoryIcon = (categoryName) => {
         const category = categories.find(
           (cat) => cat.name.toLowerCase() === categoryName.toLowerCase()
